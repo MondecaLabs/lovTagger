@@ -4,17 +4,16 @@ This small program provides an API made with flask which takes as input a new vo
 
 
 Installation :
-
+==============
 Python 3.7 is needed
-The dependencies are in requirements.txt. You can run   pip install -r requirements.txt   to install them locally. It will install flask and other python libraries needed for the machine learning model.
+The dependencies are in requirements.txt. You can run   ``pip install -r requirements.txt``   to install them locally. It will install flask and other python libraries needed for the machine learning model.
 
 Flask allows to create small web application, with python functions binded to URL with the route() decorator
 
 
 
-
 How does it work :
-
+===================
 clf.pkl : Machine learning model (SVM) saved in pickle format, to be loaded by the API 
 
 mlb.pkl : OneHotEncoder model saved in pickle format. It is used to map the output of the ML model which is numeric to the excplicit string labels
