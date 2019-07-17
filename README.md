@@ -7,5 +7,6 @@ This project aims to provide a classification system which recommends tags for n
 * classif_text_DL.ipynb : Test a Convolutional Neural Network (CNN) for the same task. It does not give scores as good as the classical machine learning models
 * API/ : Implementation of an API with Flask which takes as input a new vocabulary and return recommended tags with the SVM trained on the entire dataset of LOV (version of june 2019)
 * The Dump of the dataset for this test is available a https://labs.mondeca.com/dataset/lov.nq
+* The models for the API (clf.pkl and mlb.pkl) are located at https://labs.mondeca.com/dataset/lovTagger/
 
 [1] https://lov.linkeddata.es/dataset/lov
