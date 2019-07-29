@@ -1,0 +1,83 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma !</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css.map"> -->
+    
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
+  </head>
+
+  <body>
+    <section class="section has-background-primary">
+      <div class="container">
+        <h1 class="title">Write vocabulary</h1>
+        <form method="POST">
+            <textarea rows="10" cols="100" name="text">
+        Enter a vocabulary
+            </textarea>
+            <br>
+            <input type="submit">
+        </form>
+      </div>
+          
+      <h1 class="title">Upload new File</h1>
+      <form method=post enctype=multipart/form-data>
+        <input type=file name=file> <br>
+        <input type=submit value=Upload>
+      </form>
+
+      <h1 class="title">Enter vocabulary URI</h1>
+      <form method=post enctype=multipart/form-data>
+        <input type=text name=uri> <br>
+        <input type=submit>
+      </form>
+    </section>
+
+      <!-- <div class="columns">
+          <div class="column">1</div>
+          <div class="column">2</div>
+          <div class="column">3</div>
+          <div class="column">4</div>
+          <div class="column">5</div>
+      </div> -->
+
+      <div class="tile is-ancestor">
+          <div class="tile is-parent">
+            <article class="tile is-child is-dark">
+              hello
+            </article>
+          </div>
+         
+          <div class="tile is-6 is-parent">
+            <article class="tile is-child pink post">
+              2
+            </article>
+          </div>
+         
+          <div class="tile is-vertical is-parent">
+            <article class="tile is-child blue post">
+              Why no color
+            </article>
+            <article class="tile is-child gold post">
+              4
+            </article>
+          </div>
+      </div>
+
+    
+  </body>
+
+</html>
+
+
+<!--
+<form method="POST">
+    <input name="text">
+    <input type="submit">
+</form> --> 

@@ -1,15 +1,16 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, flash, redirect, url_for
+from werkzeug.utils import secure_filename
 from sklearn.externals import joblib
+import urllib.request
 import rdflib
 import json
 import re
+import validators
 import numpy as np
-#nltk.download('stopwords')
 from nltk.corpus import stopwords
-#from flask import routes
 
-app = Flask(__name__)
 
+#%% Functions for the ML model
 
 # Tokenizer (the pipeline cannot be loaded otherwise)
 def Tokenizer(str_input):
@@ -55,17 +56,30 @@ def process(rdflib_graph):
 
 # Transform a string of graph file (nt) into the text describing the graph
 def vocab_to_text(string):
+    print("first char : ", string[0])
     if string[0] == "<":
         form = "xml"
     else:
         form = "n3"
     g = rdflib.Graph()
     g.parse(data = string, format=form)
-    text  = process(g)
+    text = process(g)
     return text
+
+
     
-    
-#%%
+#%% Flask API
+
+UPLOAD_FOLDER = "/uploads/"
+ALLOWED_EXTENSIONS = set(["n3", "owl", "ttl"])
+
+app = Flask(__name__)
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+# Return true is the filename is accepted for upload
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 """
 @app.route("/", methods=['GET'])
@@ -75,14 +89,39 @@ def index():
 """
 
 @app.route("/", methods=['GET', "POST"])
-@app.route("/index")
-@app.route("/form", methods=['GET', "POST"])
+@app.route("/index", methods=['GET', "POST"])
 def form():
     if request.method == "POST":
         print("getting text")
-        text = request.form["text"]
+        
+        # If input come from text area form        
+        if "text" in request.form.keys():
+            text = request.form["text"]
+        # If inut comes from an uploaded file
+        elif "file" in request.files.keys():
+            file = request.files["file"]
+            if allowed_file(file.filename):
+                text = file.read().decode("utf-8")
+            else:
+                return redirect(request.url)
+        # If input comes from uri
+        elif "uri" in request.form.keys():
+            uri = request.form["uri"]
+            if not(validators.url(uri)):
+                return redirect(request.url)
+            else:
+                data = urllib.request.urlopen(uri)
+                text = data.read().decode("utf-8")
+        # If POST request is sent without good data
+        else:
+            return redirect(request.url)
+        
         print(type(text))
+        
+        # Process text
         processed_text = vocab_to_text(text)
+        
+        # Make prediction from text
         print("before pred")
         pred = clf.predict([processed_text])
         pred_prob = clf.predict_proba([processed_text])
@@ -101,3 +140,8 @@ def form():
 
 if __name__ == "__main__":
     app.run(debug=True, port=5002)
+    
+    
+    
+#%%
+    

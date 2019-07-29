@@ -5,12 +5,25 @@
 
 <body>
 
+<h1>Write vocabulary</h1>
 <form method="POST">
     <textarea rows="10" cols="100" name="text">
 Enter a vocabulary
     </textarea>
     <br>
     <input type="submit">
+</form>
+    
+<h1>Upload new File</h1>
+<form method=post enctype=multipart/form-data>
+  <input type=file name=file> <br>
+  <input type=submit value=Upload>
+</form>
+
+<h1>Enter vocabulary URI</h1>
+<form method=post enctype=multipart/form-data>
+  <input type=text name=uri> <br>
+  <input type=submit>
 </form>
 
 </body>
